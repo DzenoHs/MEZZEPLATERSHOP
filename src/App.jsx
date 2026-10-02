@@ -13,11 +13,33 @@ function App() {
   })
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('dried')
+  const [isLoading, setIsLoading] = useState(true)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
     window.localStorage.setItem('mezze-language', language)
     document.documentElement.lang = language
   }, [language])
+
+  useEffect(() => {
+    setIsLoading(true)
+    const timer = window.setTimeout(() => setIsLoading(false), 420)
+    return () => window.clearTimeout(timer)
+  }, [language, activeCategory])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 220)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const t = translations[language]
 
@@ -28,6 +50,13 @@ function App() {
 
   return (
     <div className="site-shell">
+      <div className={`loading-screen ${isLoading ? 'visible' : ''}`} aria-live="polite" aria-busy={isLoading}>
+        <div className="loading-logo">
+          <img src="/mezzelogo.png" alt="Mezze Platter Shop logo" />
+        </div>
+        <span className="loading-text">Mezze</span>
+      </div>
+
       <header className="topbar">
         <div className="topbar-inner">
           <a className="brand" href="#home" aria-label="Mezze Platter Shop home">
@@ -119,22 +148,7 @@ function App() {
                 </a>
               </div>
             </div>
-
-            <aside className="highlight-panel">
-              <p>{t.hero.quickLabel}</p>
-              <ul>
-                {t.hero.highlights.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </aside>
           </div>
-        </section>
-
-        <section className="mini-highlights" aria-label="Brand highlights">
-          <div>{t.about.stat1}</div>
-          <div>{t.about.stat2}</div>
-          <div>{t.about.stat3}</div>
         </section>
 
         <section id="products" className="section">
@@ -239,6 +253,15 @@ function App() {
           </div>
         </section>
       </main>
+
+      <button
+        type="button"
+        className={`scroll-top-btn ${showBackToTop ? 'visible' : ''}`}
+        aria-label="Vrati na početak"
+        onClick={scrollToTop}
+      >
+        <span>Vrati na početak</span>
+      </button>
 
       <footer className="site-footer">
         <div className="footer-inner">

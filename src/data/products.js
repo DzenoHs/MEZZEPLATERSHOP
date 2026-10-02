@@ -524,7 +524,7 @@ export const products = [
     },
     price: '',
     unit: '',
-    image: '',
+    image: '/prirodniSokAronija.png',
   },
   {
     id: 'juice-blueberry',
@@ -541,7 +541,7 @@ export const products = [
     },
     price: '',
     unit: '',
-    image: '',
+    image: '/prirodniSokDunjaJabuka.png',
   },
   {
     id: 'juice-beet',
@@ -558,7 +558,7 @@ export const products = [
     },
     price: '',
     unit: '',
-    image: '',
+    image: '/prirodniSokCvekla.png',
   },
   {
     id: 'juice-apple',
@@ -575,7 +575,7 @@ export const products = [
     },
     price: '',
     unit: '',
-    image: '',
+    image: '/prirodniSokJabuka.png',
   },
   {
     id: 'juice-pear',
@@ -592,7 +592,7 @@ export const products = [
     },
     price: '',
     unit: '',
-    image: '',
+    image: '/prirodniSokKruska.png',
   },
   {
     id: 'juice-strawberry',
@@ -609,6 +609,6 @@ export const products = [
     },
     price: '',
     unit: '',
-    image: '',
+    image: '/prirodniSokJagoda.png',
   },
 ]
